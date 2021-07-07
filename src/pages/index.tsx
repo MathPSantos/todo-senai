@@ -27,7 +27,19 @@ export default function Home() {
 
   const [tasks, setTaskList] = useState<TodoItem[]>([]);
   const [taskName, setTaskName] = useState("");
+  const [task, setTask] = useState<number>();
   const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
+
+  // Push notification whan a new task is added
+  const pushNewTaskNotification = () => {
+    toast({
+      title: `Sucesso`,
+      description: `Você adicionou uma nova tarefa!!`,
+      status: "success",
+      duration: 2000,
+      isClosable: true,
+    });
+  };
 
   // Push notification when a task is completed
   const pushCompletedTaskNotification = (taskIndex: number) => {
@@ -52,6 +64,7 @@ export default function Home() {
       isClosable: true,
     });
   };
+
   // Function add a task to List
   function handleAddNewTask(event: FormEvent) {
     event.preventDefault();
@@ -72,6 +85,8 @@ export default function Home() {
     setTaskList(newtasks);
 
     setTaskName("");
+
+    pushNewTaskNotification();
   }
 
   // Toggle state if a task is 0r isn't completed
@@ -149,7 +164,10 @@ export default function Home() {
                   {!task.isCompleted && (
                     <button
                       type="button"
-                      onClick={() => setIsConfirmModalOpen(true)}
+                      onClick={() => {
+                        setTask(index);
+                        setIsConfirmModalOpen(true);
+                      }}
                     >
                       <FiTrash />
                     </button>
@@ -182,7 +200,7 @@ export default function Home() {
                             variant="solid"
                             colorScheme="red"
                             onClick={() => {
-                              deleteTask(index);
+                              deleteTask(task);
                             }}
                           >
                             Deletar

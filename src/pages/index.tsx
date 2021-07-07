@@ -172,49 +172,48 @@ export default function Home() {
                       <FiTrash />
                     </button>
                   )}
-
-                  <Portal>
-                    <Modal
-                      isOpen={isConfirmModalOpen}
-                      onClose={() => setIsConfirmModalOpen(false)}
-                    >
-                      <ModalOverlay />
-
-                      <ModalContent>
-                        <ModalHeader>Você deseja deltar a tarefa?</ModalHeader>
-                        <ModalCloseButton />
-
-                        <ModalBody>
-                          Lembre-se que essa ação não pode ser desfeita, e sua
-                          tarefa será deltada para sempre!
-                        </ModalBody>
-
-                        <ModalFooter>
-                          <Button
-                            variant="ghost"
-                            onClick={() => setIsConfirmModalOpen(false)}
-                          >
-                            Cancelar
-                          </Button>
-                          <Button
-                            variant="solid"
-                            colorScheme="red"
-                            onClick={() => {
-                              deleteTask(task);
-                            }}
-                          >
-                            Deletar
-                          </Button>
-                        </ModalFooter>
-                      </ModalContent>
-                    </Modal>
-                  </Portal>
                 </li>
               ))}
             </ul>
           </div>
         </div>
       </main>
+      <Portal>
+        <Modal
+          isOpen={isConfirmModalOpen}
+          onClose={() => setIsConfirmModalOpen(false)}
+        >
+          <ModalOverlay />
+
+          <ModalContent>
+            <ModalHeader>Você deseja deltar a tarefa?</ModalHeader>
+            <ModalCloseButton />
+
+            <ModalBody>
+              Lembre-se que essa ação não pode ser desfeita, e sua tarefa será
+              deltada para sempre!
+            </ModalBody>
+
+            <ModalFooter>
+              <Button
+                variant="ghost"
+                onClick={() => setIsConfirmModalOpen(false)}
+              >
+                Cancelar
+              </Button>
+              <Button
+                variant="solid"
+                colorScheme="red"
+                onClick={() => {
+                  deleteTask(task);
+                }}
+              >
+                Deletar
+              </Button>
+            </ModalFooter>
+          </ModalContent>
+        </Modal>
+      </Portal>
     </>
   );
 }
